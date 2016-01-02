@@ -1,13 +1,26 @@
 #include "ofApp.h"
 
+
+void ofApp::onParamUpdate(int& paramValue)
+{
+    ofLogVerbose() << "ofApp::onParamUpdate: " << paramValue;
+}
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetLogLevel(OF_LOG_VERBOSE);
+    
+    timeElapsed.set("timeElapsed", 10.f);
+    fps.setWithCallback("fps", 0, this, &ofApp::onParamUpdate);
+    
+    fps.parameter.addListener(this, &ofApp::onParamUpdate);
 
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    ofLogVerbose() << "update";
+    timeElapsed.value = ofGetElapsedTimef();
+    fps.value = ofGetFrameNum();
 }
 
 //--------------------------------------------------------------
