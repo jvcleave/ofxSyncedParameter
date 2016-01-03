@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "SyncedParameter.h"
+#include "SyncedParameterCollection.h"
 
 class ofApp : public ofBaseApp{
 
@@ -24,7 +25,7 @@ class ofApp : public ofBaseApp{
     
     
     SyncedParameter<float> timeElapsed;
-    SyncedParameter<int> fps;
-
-    void onParamUpdate(int& paramValue);
+    SyncedParameter<int> currentFrame;
+    SyncedParameterCollection<int> intCollection;
+    void onCurrentFrameUpdate(int& value);
 };

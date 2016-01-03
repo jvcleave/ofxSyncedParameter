@@ -1,26 +1,43 @@
 #include "ofApp.h"
 
+vector<int> ints;
 
-void ofApp::onParamUpdate(int& paramValue)
+void ofApp::onCurrentFrameUpdate(int& value)
 {
-    ofLogVerbose() << "ofApp::onParamUpdate: " << paramValue;
+    //ofLogVerbose() << "ofApp::oncurrentFrameUpdate: " << value;
 }
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
-    
+    ofSetVerticalSync(false);
     timeElapsed.set("timeElapsed", 10.f);
-    fps.setWithCallback("fps", 0, this, &ofApp::onParamUpdate);
     
-    fps.parameter.addListener(this, &ofApp::onParamUpdate);
 
+    //currentFrame.set("currentFrame", 0);
+    //currentFrame.parameter.addListener(this, &ofApp::onCurrentFrameUpdate);
+
+    currentFrame.set("currentFrame", 0, this, &ofApp::onCurrentFrameUpdate);
+
+    for(size_t i=1; i<100000; i++)
+    {
+        ints.push_back(i);
+    }
+    
+    intCollection.addItems(ints);
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    ofLogVerbose() << "update";
+
     timeElapsed.value = ofGetElapsedTimef();
-    fps.value = ofGetFrameNum();
+    currentFrame.value = ofGetFrameNum();
+    
+    for(size_t i=0; i<intCollection.collection.size(); i++)
+    {
+        intCollection.collection[i].value = ofRandom(10, 100);
+    }
+    ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
 
 //--------------------------------------------------------------

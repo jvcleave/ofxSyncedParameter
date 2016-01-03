@@ -13,10 +13,22 @@ public:
     {
         T temp;
         value = temp;
+        parameter.set(name, value);
         name = "UNDEFINED";
     }
     
-    void setup(string name_, T value_)
+    template <typename ArgumentsType, class ListenerClass>
+    void set(string name_,
+             T value_,
+             ListenerClass  * listener,
+             void (ListenerClass::*listenerMethod)(ArgumentsType&),
+             bool doUpdate = false)
+    {
+        set(name_, value_, doUpdate);
+        parameter.addListener(listener, listenerMethod);
+    }
+    
+    void set(string name_, T value_, bool doUpdate = true)
     {
         if(!name_.empty())
         {
@@ -25,38 +37,10 @@ public:
         
         value = value_;
         parameter.set(name, value);
-    }
-    
-    void onChange(T& paramValue)
-    {
-        ofLogVerbose() << name << " changed " << paramValue;
-    }
-    
-    template <typename ArgumentsType, class ListenerClass>
-    void setWithCallback(string name_,
-                         T value_,
-                         ListenerClass  * listener,
-                         void (ListenerClass::*listenerMethod)(ArgumentsType&))
-    {
-        setup(name_, value_);
-        addChangeListener(listener, listenerMethod);
-    }
-    
-    
-
-    template <typename ArgumentsType, class ListenerClass>
-    void addChangeListener(ListenerClass  * listener, void (ListenerClass::*listenerMethod)(ArgumentsType&))
-    {
-        parameter.addListener(listener, listenerMethod);
-    }
-    
-    void set(string name_, T value_, bool doUpdateEvent=true)
-    {
-        setup(name_, value_);
-        addChangeListener(this, &SyncedParameter::onChange);
-        if(doUpdateEvent)
+        if(doUpdate)
         {
             ofAddListener(ofEvents().update, this, &SyncedParameter::onUpdate);
+
         }
         
     }
@@ -66,11 +50,14 @@ public:
         update();
     }
     
-    void update()
+    bool update()
     {
+        bool didChange =false;
         if(value != parameter)
         {
             parameter = value;
+            didChange = true;
         }
+        return didChange;
     }
 };
