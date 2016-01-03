@@ -29,11 +29,9 @@ void ofApp::setup(){
 
     for(size_t i=0; i<strings.size(); i++)
     {
-        SyncedParameter<string> stringParam;
-        //TODO: why have to pass false? (causes crash)
-        stringParam.set(strings[i], strings[i]);
-        
-        stringCollection.push_back(stringParam);
+        SyncedParameter<string> param;
+        param.set(strings[i], strings[i]);
+        stringCollection.push_back(param);
     }
     
     for(size_t i=0; i<5; i++)

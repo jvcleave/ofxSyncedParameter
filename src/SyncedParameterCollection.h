@@ -6,6 +6,7 @@ class SyncedParameterCollection
 {
 public:
     vector<SyncedParameter<T>> collection;
+    ofParameterGroup parameterGroup;
     bool hasAddedUpdateListener;
     SyncedParameterCollection()
     {
@@ -13,9 +14,10 @@ public:
     };
     
     
-    void push_back(SyncedParameter<T>& syncedParam)
+    void push_back(SyncedParameter<T>& syncedParameter)
     {
-        collection.push_back(syncedParam);
+        collection.push_back(syncedParameter);
+        parameterGroup.add(syncedParameter.parameter);
         if(!hasAddedUpdateListener)
         {
             ofAddListener(ofEvents().update, this, &SyncedParameterCollection::onUpdate);
@@ -27,11 +29,11 @@ public:
     {
         for(size_t i = 0; i<items.size(); i++)
         {
-            SyncedParameter<T> syncedParam;
-            syncedParam.set(ofToString(collection.size()),
-                            items[i],
-                            false);
-            push_back(syncedParam);
+            SyncedParameter<T> syncedParameter;
+            syncedParameter.set(ofToString(collection.size()),
+                                items[i],
+                                false);
+            push_back(syncedParameter);
         }
     }
     
