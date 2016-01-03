@@ -28,6 +28,7 @@ class ofApp : public ofBaseApp{
     SyncedParameter<int> currentFrame;
     SyncedParameterCollection<int> intCollection;
     SyncedParameterCollection<string> stringCollection;
+    SyncedParameterCollection<bool> boolCollection;
 
     vector<SyncedParameter<string>> stringParams;
 

@@ -9,12 +9,14 @@ public:
     ofParameter<T> parameter;
     T value;
     string name;
+    bool hasAddedUpdateListener;
     SyncedParameter()
     {
         T temp;
         value = temp;
         parameter.set(name, value);
         name = "UNDEFINED";
+        hasAddedUpdateListener = false;
     }
     
     template <typename ArgumentsType, class ListenerClass>
@@ -28,7 +30,7 @@ public:
         parameter.addListener(listener, listenerMethod);
     }
     
-    void set(string name_, T value_, bool doUpdate = true)
+    void set(string name_, T value_, bool doUpdate = false)
     {
         if(!name_.empty())
         {
@@ -39,10 +41,18 @@ public:
         parameter.set(name, value);
         if(doUpdate)
         {
-            ofAddListener(ofEvents().update, this, &SyncedParameter::onUpdate);
-
+            startUpdating();
         }
         
+    }
+    
+    void startUpdating()
+    {
+        if(!hasAddedUpdateListener)
+        {
+            hasAddedUpdateListener = true;
+            ofAddListener(ofEvents().update, this, &SyncedParameter::onUpdate);
+        }
     }
     
     void onUpdate(ofEventArgs& event)
