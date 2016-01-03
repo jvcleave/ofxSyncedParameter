@@ -25,6 +25,10 @@ public:
         }
     }
     
+    ofParameterGroup& getParameterGroup()
+    {
+        return parameterGroup;
+    }
     void addItems(vector<T>& items)
     {
         for(size_t i = 0; i<items.size(); i++)
@@ -44,7 +48,7 @@ public:
             bool didChange = collection[i].update();
             if(didChange)
             {
-                ofLogVerbose() << collection[i].name << " CHANGED TO " << collection[i].value;
+                //ofLogVerbose() << collection[i].name << " CHANGED TO " << collection[i].value;
             }
         }
         

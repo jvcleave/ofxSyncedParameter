@@ -40,7 +40,8 @@ void ofApp::setup(){
         param.set("bool_"+ofToString(i), true);
         boolCollection.push_back(param);
     }
-    
+    boolCollection.parameterGroup.setName("parameters");
+    synchronizer.setup(boolCollection.getParameterGroup(),6667, "localhost", 6666);
 }
 
 //--------------------------------------------------------------
@@ -63,7 +64,8 @@ void ofApp::update(){
     {
         boolCollection.collection[i].value = (ofGetFrameNum()%2 == 0);
     }
-
+    
+    synchronizer.update();
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
 

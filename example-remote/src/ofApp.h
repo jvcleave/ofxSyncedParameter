@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "SyncedParameter.h"
 #include "SyncedParameterCollection.h"
-//#include "ofxOscParameterSync.h"
+#include "ofxOscParameterSync.h"
 
 class ofApp : public ofBaseApp{
 
@@ -34,4 +34,6 @@ class ofApp : public ofBaseApp{
     vector<SyncedParameter<string>> stringParams;
 
     void onCurrentFrameUpdate(int& value);
+    
+    ofxOscParameterSync synchronizer;
 };
