@@ -27,5 +27,9 @@ class ofApp : public ofBaseApp{
     SyncedParameter<float> timeElapsed;
     SyncedParameter<int> currentFrame;
     SyncedParameterCollection<int> intCollection;
+    SyncedParameterCollection<string> stringCollection;
+
+    vector<SyncedParameter<string>> stringParams;
+
     void onCurrentFrameUpdate(int& value);
 };

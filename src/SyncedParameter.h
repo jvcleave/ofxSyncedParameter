@@ -53,7 +53,8 @@ public:
     bool update()
     {
         bool didChange =false;
-        if(value != parameter)
+        //TODO: better way than to serialize?
+        if(ofToString(value) != parameter.toString())
         {
             parameter = value;
             didChange = true;

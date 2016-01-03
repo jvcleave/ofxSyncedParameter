@@ -18,12 +18,24 @@ void ofApp::setup(){
 
     currentFrame.set("currentFrame", 0, this, &ofApp::onCurrentFrameUpdate);
 
-    for(size_t i=1; i<100000; i++)
+    for(size_t i=1; i<5; i++)
     {
         ints.push_back(i);
     }
     
     intCollection.addItems(ints);
+    
+    vector<string> strings = {"Orange", "Pineapple", "Strawberry", "Watermelon"};
+
+    for(size_t i=0; i<strings.size(); i++)
+    {
+        SyncedParameter<string> stringParam;
+        //TODO: why have to pass false? (causes crash)
+        stringParam.set(strings[i], strings[i], false);
+        
+        stringCollection.push_back(stringParam);
+        
+    }
     
 }
 
@@ -37,6 +49,12 @@ void ofApp::update(){
     {
         intCollection.collection[i].value = ofRandom(10, 100);
     }
+    
+    for(size_t i=0; i<stringCollection.collection.size(); i++)
+    {
+        stringCollection.collection[i].value = ofToString(ofGetElapsedTimef());
+    }
+    
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
 

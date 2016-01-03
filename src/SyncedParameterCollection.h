@@ -6,10 +6,10 @@ class SyncedParameterCollection
 {
 public:
     vector<SyncedParameter<T>> collection;
-    
+    bool hasAddedListener;
     SyncedParameterCollection()
     {
-
+        hasAddedListener = false;
     };
     
     void onChange(T& paramValue)
@@ -20,6 +20,11 @@ public:
     void push_back(SyncedParameter<T>& syncedParam)
     {
         collection.push_back(syncedParam);
+        if(!hasAddedListener)
+        {
+            ofAddListener(ofEvents().update, this, &SyncedParameterCollection::onUpdate);
+            hasAddedListener = true;
+        }
     }
     
     void addItems(vector<T>& items)
@@ -33,9 +38,6 @@ public:
                             &SyncedParameterCollection::onChange);
             push_back(syncedParam);
         }
-        
-        ofAddListener(ofEvents().update, this, &SyncedParameterCollection::onUpdate);
-
     }
     
     void onUpdate(ofEventArgs& event)
@@ -45,7 +47,7 @@ public:
             bool didChange = collection[i].update();
             if(didChange)
             {
-                //ofLogVerbose() << collection[i].name << " CHANGED TO " << collection[i].value;
+                ofLogVerbose() << collection[i].name << " CHANGED TO " << collection[i].value;
             }
         }
         
