@@ -4,25 +4,17 @@
 #include "SyncedParameter.h"
 #include "SyncedParameterCollection.h"
 #include "ofxOscParameterSync.h"
+#include "ParameterXMLUtils.h"
+#include "XMLServer.h"
 
 class ofApp : public ofBaseApp{
-
-	public:
-		void setup();
-		void update();
-		void draw();
-
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
+    
+public:
+    void setup();
+    void update();
+    void draw();
+    
+    void keyPressed(int key);
     
     
     SyncedParameter<float> timeElapsed;
@@ -30,10 +22,19 @@ class ofApp : public ofBaseApp{
     SyncedParameterCollection<int> intCollection;
     SyncedParameterCollection<string> stringCollection;
     SyncedParameterCollection<bool> boolCollection;
-
+    
+    SyncedParameter<float> timeElapsedClone;
+    
     vector<SyncedParameter<string>> stringParams;
-
+    
     void onCurrentFrameUpdate(int& value);
     
     ofxOscParameterSync synchronizer;
+    ParameterXMLUtils xmlUtils;
+    XMLServer xmlServer;
+    ofParameterGroup parametersAll;
+    
+    bool doWriteXML;
+    void writeXML();
+    
 };

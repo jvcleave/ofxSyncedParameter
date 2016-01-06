@@ -29,6 +29,17 @@ public:
     {
         return parameterGroup;
     }
+    
+    //TODO: test
+    void addItems(ofParameterGroup& parameterGroup_)
+    {
+        for(size_t i=0; i<parameterGroup_.size(); i++)
+        {
+            SyncedParameter<T> syncedParameter;
+            syncedParameter.set(parameterGroup[i], false);
+            push_back(syncedParameter);
+        }
+    }
     void addItems(vector<T>& items)
     {
         for(size_t i = 0; i<items.size(); i++)
