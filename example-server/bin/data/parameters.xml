@@ -1,21 +1,21 @@
 <group>
-	<timeElapsed max="3.40282e+38" min="-3.40282e+38" type="float">2.39327</timeElapsed>
-	<currentFrame max="2147483647" min="-2147483648" type="int">95</currentFrame>
-	<timeElapsedClone max="3.40282e+38" min="-3.40282e+38" type="float">2.39328</timeElapsedClone>
-	<Orange type="string">naeOrg</Orange>
-	<Pineapple type="string">npaPpilee</Pineapple>
-	<Strawberry type="string">btySerwarr</Strawberry>
-	<Watermelon type="string">etelrWmnoa</Watermelon>
-	<bool_0 type="bool">0</bool_0>
-	<bool_1 type="bool">0</bool_1>
-	<bool_2 type="bool">0</bool_2>
-	<bool_3 type="bool">0</bool_3>
-	<bool_4 type="bool">0</bool_4>
+	<timeElapsed max="3.40282e+38" min="-3.40282e+38" type="float">7.66505</timeElapsed>
+	<currentFrame max="2147483647" min="-2147483648" type="int">312</currentFrame>
+	<timeElapsedClone max="3.40282e+38" min="-3.40282e+38" type="float">7.66506</timeElapsedClone>
+	<Orange type="string">eagrnO</Orange>
+	<Pineapple type="string">nalipepeP</Pineapple>
+	<Strawberry type="string">Swytrarbre</Strawberry>
+	<Watermelon type="string">entrWlmeao</Watermelon>
+	<bool_0 type="bool">1</bool_0>
+	<bool_1 type="bool">1</bool_1>
+	<bool_2 type="bool">1</bool_2>
+	<bool_3 type="bool">1</bool_3>
+	<bool_4 type="bool">1</bool_4>
 	<myBools type="group">
-		<bool_0 type="bool">0</bool_0>
-		<bool_1 type="bool">0</bool_1>
-		<bool_2 type="bool">0</bool_2>
-		<bool_3 type="bool">0</bool_3>
-		<bool_4 type="bool">0</bool_4>
+		<bool_0 type="bool">1</bool_0>
+		<bool_1 type="bool">1</bool_1>
+		<bool_2 type="bool">1</bool_2>
+		<bool_3 type="bool">1</bool_3>
+		<bool_4 type="bool">1</bool_4>
 	</myBools>
 </group>

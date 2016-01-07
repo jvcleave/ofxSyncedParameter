@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "ofxNetwork.h"
+#include "ParameterXMLUtils.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -15,5 +17,11 @@ public:
     ofxTCPClient tcpClient;
     bool didConnect;
     string xmlContent;
+    ofXml xml;
     bool hasReceivedXML;
+    ParameterXMLUtils xmlParmUtils;
+    
+    ofParameterGroup parameterGroup;
+    
+    ofxPanel* gui;
 };

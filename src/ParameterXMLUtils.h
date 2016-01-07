@@ -86,6 +86,7 @@ public:
     {
         string childName = xml.getName();
         string nodeType = xml.getAttribute("type");
+        ofLogVerbose() << "nodeType: " << nodeType;
         if (nodeType == "bool")
         {
             ofParameter<bool>* boolItem = new ofParameter<bool>();
@@ -98,6 +99,7 @@ public:
             string min = xml.getAttribute("min");
             string max = xml.getAttribute("max");
             intItem->set(childName, xml.getIntValue(), ofToInt(min), ofToInt(max));
+
             return (ofAbstractParameter*) intItem;
         }
         
@@ -106,9 +108,27 @@ public:
             ofParameter<float>* floatItem = new  ofParameter<float>();
             string min = xml.getAttribute("min");
             string max = xml.getAttribute("max");
-            floatItem->set(childName, xml.getFloatValue(), ofToFloat(min), ofToFloat(max));
+            //floatItem->set(childName, xml.getFloatValue(), ofToFloat(min), ofToFloat(max));
+            floatItem->set(childName, xml.getFloatValue(), 0.0f, 1000.0f);
+
+            
             return (ofAbstractParameter*) floatItem;
         }
+        
+        if (nodeType == "string")
+        {
+            ofParameter<string>* stringItem = new  ofParameter<string>();
+            stringItem->set(childName, xml.getValue());
+            return (ofAbstractParameter*) stringItem;
+        }
+        
+        if (nodeType == "group")
+        {
+            ofParameterGroup* group = createGuiParameterGroup(xml);
+            group->setName(childName);
+            return (ofAbstractParameter*) group;
+        }
+        
         return NULL;
     }
     
@@ -123,7 +143,8 @@ public:
         {
             
             xml.setToChild(j);
-            parameterGroup->add(*createGuiParameter(xml));
+            ofAbstractParameter* param = createGuiParameter(xml);
+            parameterGroup->add(*param);
             xml.setToParent();
             
         }

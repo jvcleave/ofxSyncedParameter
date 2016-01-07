@@ -9,6 +9,7 @@ void ofApp::setup()
     hasReceivedXML = false;
     xmlContent = "";
     didConnect = tcpClient.setup("127.0.0.1", 11999);
+    gui = NULL;
 }
 
 //--------------------------------------------------------------
@@ -27,6 +28,10 @@ void ofApp::update()
                 if( str.length() > 0 )
                 {
                     xmlContent = str;
+                    ofBuffer xmlBuffer(xmlContent);
+                    xml.loadFromBuffer(xmlBuffer);
+                    parameterGroup = *xmlParmUtils.createGuiParameterGroup(xml);
+                    gui = new ofxPanel(parameterGroup);
                     hasReceivedXML = true;
                 }
             }else
@@ -49,7 +54,25 @@ void ofApp::draw()
     info << "didConnect: " << didConnect << endl;
     info << "xmlContent: " << endl;
     info << xmlContent << endl;
-    
+
+    if (parameterGroup)
+    {
+        //ofLogVerbose() << "parameterGroup->size(): " << parameterGroup.size();
+        string output = parameterGroup.toString();
+        info << output << endl;
+        for(size_t i=0; i<parameterGroup.size(); i++)
+        {
+            //ofAbstractParameter* param = &parameterGroup[i];
+            
+            //string paramName = parameterGroup[i].toString();
+            
+            //info << paramName << endl;
+        }
+    }
+    if(gui)
+    {
+        gui->draw();
+    }
     ofDrawBitmapStringHighlight(info.str(), 20, 20);
 }
 
