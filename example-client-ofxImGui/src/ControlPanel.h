@@ -3,6 +3,7 @@
 #include "ofxImGui.h"
 #include "ofxSyncedParameter.h"
 #include "ParameterXMLUtils.h"
+#include "ParameterTypeUtils.h"
 
 #pragma GCC diagnostic ignored "-Wformat-security"
 
@@ -11,18 +12,23 @@ class ControlPanel
 public:
     
     ofxImGui gui;
-    ofParameterGroup parameterGroup;
-    string xmlContent;
+    string xmlString;
     ofXml xml;
-    
     ParameterXMLUtils xmlParmUtils;
+    
+    map<int, ofxSyncedParameter<float>> floatParams;
+    map<int, ofxSyncedParameter<int>> intParams;
+    map<int, ofxSyncedParameter<bool>> boolParams;
+
     ControlPanel()
     {
     };
     
-    void setup(string input)
+    void setup(string xmlString_)
     {
-        ofBuffer xmlBuffer(input);
+        xmlString = xmlString_;
+        
+        ofBuffer xmlBuffer(xmlString);
         xml.loadFromBuffer(xmlBuffer);
         
         string elementName = xml.getName();
@@ -32,41 +38,60 @@ public:
             
             xml.setToChild(j);
             ofAbstractParameter* param = xmlParmUtils.createGuiParameter(xml);
-            //get type
-            
-            ofxSyncedParameter syncedParameter;
-            
+            ProbeResult probeResult = ParameterTypeUtils::probeType(param);
+            switch(probeResult.type)
+            {
+                case FLOAT:
+                {
+                    ParameterTypeUtils::collectParams(param, floatParams);
+                    break;
+                }
+                case INT16_T:
+                case INT32_T:
+                case INT64_T:
+                case INT8_T:
+                {
+                    ParameterTypeUtils::collectParams(param, intParams);
+                    break;
+                }
+                case BOOL:
+                {
+                    ParameterTypeUtils::collectParams(param, boolParams);
+                    break;
+                }
+            }
             xml.setToParent();
             
-        }
-        
-        parameterGroup = *xmlParmUtils.createGuiParameterGroup(xml);
-        for(size_t i=0; i<parameterGroup.size(); i++)
-        {
-            ofAbstractParameter* param = &parameterGroup[i];
-            
-            string paramString = param->type();
-            
-            //ofxSyncedParameter.h
-            ofLogVerbose() << paramString;
         }
     }
     
     void draw()
     {
-        /*
-        if(parameterGroup)
+        
+        gui.begin();
+        for(size_t i=0; i<floatParams.size(); i++)
         {
-            string output = parameterGroup->toString();
+            ImGui::SliderFloat(floatParams[i].getName().c_str(),
+                               &floatParams[i].value,
+                               floatParams[i].getMin(),
+                               floatParams[i].getMax());
             
-
-            gui.begin();
-            ImGui::Text(xmlContent.c_str());
-            ImGui::Text(output.c_str());
-            
-            gui.end();
         }
-         */
+        for(size_t i=0; i<intParams.size(); i++)
+        {
+            ImGui::SliderInt(intParams[i].getName().c_str(),
+                             &intParams[i].value,
+                             intParams[i].getMin(),
+                             intParams[i].getMax());
+            
+        }
+        for(size_t i=0; i<boolParams.size(); i++)
+        {
+            ImGui::RadioButton(boolParams[i].getName().c_str(),
+                               &boolParams[i].value);
+            
+        }
+        gui.end();
  
     }
 };

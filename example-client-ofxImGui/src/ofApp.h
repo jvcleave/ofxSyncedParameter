@@ -15,7 +15,8 @@ public:
 
     ofxTCPClient tcpClient;
     bool didConnect;
-    bool hasReceivedXML;
+    bool useServer;
+    bool didSetup;
 
     
     ofParameterGroup parameterGroup;

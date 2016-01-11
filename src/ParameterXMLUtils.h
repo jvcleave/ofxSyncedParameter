@@ -86,7 +86,7 @@ public:
     {
         string childName = xml.getName();
         string nodeType = xml.getAttribute("type");
-        ofLogVerbose() << "nodeType: " << nodeType;
+        //ofLogVerbose() << "nodeType: " << nodeType;
         if (nodeType == "bool")
         {
             ofParameter<bool>* boolItem = new ofParameter<bool>();
