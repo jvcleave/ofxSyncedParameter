@@ -1,5 +1,3 @@
-/example-*/*.xcodeproj
-
 *.app
 .DS_Store
 
