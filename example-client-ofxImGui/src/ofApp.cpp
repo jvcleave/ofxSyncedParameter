@@ -25,10 +25,9 @@ void ofApp::update()
                 string str = tcpClient.receive();
                 if( str.length() > 0 )
                 {
+                    controlPanel.setup(str);
                     controlPanel.xmlContent = str;
-                    ofBuffer xmlBuffer(controlPanel.xmlContent);
-                    xml.loadFromBuffer(xmlBuffer);
-                    controlPanel.setup(xmlParmUtils.createGuiParameterGroup(xml));
+  
                     
                     hasReceivedXML = true;
                 }

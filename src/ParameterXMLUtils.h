@@ -182,7 +182,7 @@ public:
             int numElementChildren = xml.getNumChildren();
             if (numElementChildren>0)
             {
-                
+                ofLogVerbose() << "numElementChildren: " << numElementChildren;
                 ofParameterGroup* parameterGroupPtr = createGuiToggleParameterGroup(xml);
                 for(int j=0; j<numElementChildren; j++)
                 {

@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxNetwork.h"
-#include "ParameterXMLUtils.h"
 #include "ControlPanel.h"
 
 class ofApp : public ofBaseApp{
@@ -16,9 +15,8 @@ public:
 
     ofxTCPClient tcpClient;
     bool didConnect;
-    ofXml xml;
     bool hasReceivedXML;
-    ParameterXMLUtils xmlParmUtils;
+
     
     ofParameterGroup parameterGroup;
     ControlPanel controlPanel;

@@ -1,7 +1,8 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxImGui.h"
-#include "SyncedParameter.h"
+#include "ofxSyncedParameter.h"
+#include "ParameterXMLUtils.h"
 
 #pragma GCC diagnostic ignored "-Wformat-security"
 
@@ -11,28 +12,46 @@ public:
     
     ofxImGui gui;
     ofParameterGroup parameterGroup;
-    vector<void*> syncedParameters;
     string xmlContent;
+    ofXml xml;
+    
+    ParameterXMLUtils xmlParmUtils;
     ControlPanel()
     {
-
     };
     
-    void setup(ofParameterGroup* group)
+    void setup(string input)
     {
+        ofBuffer xmlBuffer(input);
+        xml.loadFromBuffer(xmlBuffer);
         
-        parameterGroup = *group;
+        string elementName = xml.getName();
+        int numElementChildren = xml.getNumChildren();
+        for(int j=0; j<numElementChildren; j++)
+        {
+            
+            xml.setToChild(j);
+            ofAbstractParameter* param = xmlParmUtils.createGuiParameter(xml);
+            //get type
+            
+            ofxSyncedParameter syncedParameter;
+            
+            xml.setToParent();
+            
+        }
+        
+        parameterGroup = *xmlParmUtils.createGuiParameterGroup(xml);
         for(size_t i=0; i<parameterGroup.size(); i++)
         {
             ofAbstractParameter* param = &parameterGroup[i];
             
             string paramString = param->type();
             
-            if(param->type() == typeid(float)
-            
+            //ofxSyncedParameter.h
             ofLogVerbose() << paramString;
         }
     }
+    
     void draw()
     {
         /*

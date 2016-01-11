@@ -49,7 +49,6 @@ void ofApp::setup(){
         stringCollection.push_back(param);
     }
     
-    boolCollection.parameterGroup.setName("myBools");
     for(size_t i=0; i<5; i++)
     {
         ofxSyncedParameter<bool> param;
@@ -57,6 +56,7 @@ void ofApp::setup(){
         parametersAll.add(param);
         boolCollection.push_back(param);
     }
+    boolCollection.parameterGroup.setName("myBools");
     
     //use ofxOSCParameterSync
     //synchronizer.setup(boolCollection.getParameterGroup(),6667, "localhost", 6666);
