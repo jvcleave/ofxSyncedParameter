@@ -12,25 +12,21 @@ void ofApp::setup(){
     doWriteXML = false;
     timeElapsed.set("timeElapsed", 0.0f);
     timeElapsed.startUpdating();
-    parametersAll.add(timeElapsed.parameter);
+    parametersAll.add(timeElapsed);
 
     //you can use your own ofParameter callbacks
-    //currentFrame.set("currentFrame", 0);
-    //currentFrame.parameter.addListener(this, &ofApp::onCurrentFrameUpdate);
-
-    currentFrame.set("currentFrame",
-                     0,
-                     this,
-                     &ofApp::onCurrentFrameUpdate,
-                     true);
+    currentFrame.set("currentFrame", 0);
+    currentFrame.addListener(this, &ofApp::onCurrentFrameUpdate);
+    currentFrame.startUpdating();
+  
     
-    parametersAll.add(currentFrame.parameter);
+    parametersAll.add(currentFrame);
 
     
     //you can use your exisiting ofParameters
     ofParameter<float> existingParameter;
     existingParameter.set("timeElapsedClone", 0.0f);
-    timeElapsedClone.set(existingParameter, true);
+    timeElapsedClone.setFromExisting(existingParameter, true);
     
     parametersAll.add(existingParameter);
 
@@ -46,21 +42,21 @@ void ofApp::setup(){
     vector<string> strings = {"Orange", "Pineapple", "Strawberry", "Watermelon"};
     for(size_t i=0; i<strings.size(); i++)
     {
-        SyncedParameter<string> param;
+        ofxSyncedParameter<string> param;
         param.set(strings[i], strings[i]);
-        parametersAll.add(param.parameter);
+        parametersAll.add(param);
         //option to add individual SyncedParameters
         stringCollection.push_back(param);
     }
     
+    boolCollection.parameterGroup.setName("myBools");
     for(size_t i=0; i<5; i++)
     {
-        SyncedParameter<bool> param;
+        ofxSyncedParameter<bool> param;
         param.set("bool_"+ofToString(i), true);
-        parametersAll.add(param.parameter);
+        parametersAll.add(param);
         boolCollection.push_back(param);
     }
-    boolCollection.parameterGroup.setName("myBools");
     
     //use ofxOSCParameterSync
     //synchronizer.setup(boolCollection.getParameterGroup(),6667, "localhost", 6666);

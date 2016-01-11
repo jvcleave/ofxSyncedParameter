@@ -11,11 +11,5 @@
 	<bool_2 type="bool">1</bool_2>
 	<bool_3 type="bool">1</bool_3>
 	<bool_4 type="bool">1</bool_4>
-	<myBools type="group">
-		<bool_0 type="bool">1</bool_0>
-		<bool_1 type="bool">1</bool_1>
-		<bool_2 type="bool">1</bool_2>
-		<bool_3 type="bool">1</bool_3>
-		<bool_4 type="bool">1</bool_4>
-	</myBools>
+	<myBools/>
 </group>
