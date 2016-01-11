@@ -1,0 +1,4 @@
+ofxMSAInteractiveObject
+ofxSimpleGuiToo
+ofxSyncedParameter
+ofxXmlSettings
