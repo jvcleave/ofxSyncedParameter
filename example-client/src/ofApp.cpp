@@ -69,11 +69,13 @@ void ofApp::draw()
             //info << paramName << endl;
         }
     }
+    
+    ofDrawBitmapStringHighlight(info.str(), 20, 20);
+    
     if(gui)
     {
         gui->draw();
     }
-    ofDrawBitmapStringHighlight(info.str(), 20, 20);
 }
 
 //--------------------------------------------------------------
