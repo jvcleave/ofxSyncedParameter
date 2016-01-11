@@ -7,9 +7,7 @@ void ofApp::setup()
     ofSetLogLevel("ofxNetwork", OF_LOG_SILENT);
 
     hasReceivedXML = false;
-    xmlContent = "";
     didConnect = tcpClient.setup("127.0.0.1", 11999);
-    gui = NULL;
 }
 
 //--------------------------------------------------------------
@@ -27,11 +25,11 @@ void ofApp::update()
                 string str = tcpClient.receive();
                 if( str.length() > 0 )
                 {
-                    xmlContent = str;
-                    ofBuffer xmlBuffer(xmlContent);
+                    controlPanel.xmlContent = str;
+                    ofBuffer xmlBuffer(controlPanel.xmlContent);
                     xml.loadFromBuffer(xmlBuffer);
-                    parameterGroup = *xmlParmUtils.createGuiParameterGroup(xml);
-                    gui = new ofxPanel(parameterGroup);
+                    controlPanel.setup(xmlParmUtils.createGuiParameterGroup(xml));
+                    
                     hasReceivedXML = true;
                 }
             }else
@@ -46,16 +44,15 @@ void ofApp::update()
         
     }
 }
-
 //--------------------------------------------------------------
 void ofApp::draw()
 {
     stringstream info;
     info << "didConnect: " << didConnect << endl;
-    info << "xmlContent: " << endl;
-    info << xmlContent << endl;
+    controlPanel.draw();
 
-    if (parameterGroup)
+   
+    /*if (parameterGroup)
     {
         //ofLogVerbose() << "parameterGroup->size(): " << parameterGroup.size();
         string output = parameterGroup.toString();
@@ -68,14 +65,12 @@ void ofApp::draw()
             
             //info << paramName << endl;
         }
-    }
+    }*/
     
-    ofDrawBitmapStringHighlight(info.str(), 20, 20);
+    //ofDrawBitmapStringHighlight(info.str(), 20, 20);
     
-    if(gui)
-    {
-        gui->draw();
-    }
+    
+   
 }
 
 //--------------------------------------------------------------

@@ -108,10 +108,26 @@ public:
             ofParameter<float>* floatItem = new  ofParameter<float>();
             string min = xml.getAttribute("min");
             string max = xml.getAttribute("max");
-            //floatItem->set(childName, xml.getFloatValue(), ofToFloat(min), ofToFloat(max));
-            floatItem->set(childName, xml.getFloatValue(), 0.0f, 1000.0f);
-
-            
+            float value = xml.getFloatValue();
+            float floatMin;
+            float floatMax;
+            //default FLT_MIN and FLT_MAX will crash tesselator
+            //https://github.com/openframeworks/openFrameworks/issues/4717
+            if(min == "-3.40282e+38")
+            {
+                floatMin = value;
+            }else
+            {
+                floatMin = ofToFloat(min);
+            }
+            if(max == "3.40282e+38")
+            {
+                floatMax = value;
+            }else
+            {
+                floatMax = ofToFloat(max);
+            }
+            floatItem->set(childName, value, floatMin, floatMax);
             return (ofAbstractParameter*) floatItem;
         }
         
