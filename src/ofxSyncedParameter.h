@@ -13,6 +13,10 @@ public:
         value = temp;
     };
     
+    string type() const
+    {
+        return typeid(ofParameter<T>).name();
+    }
     void setFromExisting(ofParameter<T>& existingParameter, bool doUpdate = false )
     {
         value = existingParameter;
@@ -44,6 +48,30 @@ public:
             this->set(this->getName(), value);
             didChange = true;
         }
+#if 0
+        
+        if(!isBooleanType)
+        {
+            //TODO: better way than to serialize?
+            string currentValue = ofParameter<T>::toString();
+            if(ofToString(value) != currentValue)
+            {
+                this->set(this->getName(), value);
+                didChange = true;
+            }
+        }else
+        {
+            ofAbstractParameter* a = (ofAbstractParameter*)this;
+            bool currentValue = a->cast<bool>();
+            
+            if(value != currentValue)
+            {
+                //*a = currentValue;
+                this->set(this->getName(), true);
+                didChange = true;
+            }
+        }
+#endif
         return didChange;
     }
 };
