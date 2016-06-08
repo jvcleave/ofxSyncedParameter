@@ -13,9 +13,9 @@ enum PARAM_TYPE
     UINT8_T,
     INT16_T,
     UINT16_T,
-    FLOAT,
-    DOUBLE,
-    BOOL,
+    FLOAT_,
+    DOUBLE_,
+    BOOL_,
     OFVEC2F,
     OFVEC3F,
     OFVEC4F,
@@ -23,7 +23,7 @@ enum PARAM_TYPE
     OFSHORTCOLOR,
     OFFLOATCOLOR,
     STRING,
-    GROUP,
+    GROUP_,
     UNKNOWN
 };
 
@@ -51,8 +51,8 @@ public:
         if(t==typeid(ofParameter<uint8_t>).name()) { result.type = UINT8_T; result.typeName = "uint8_t";}
         if(t==typeid(ofParameter<int16_t>).name()) { result.type = INT16_T; result.typeName = "int16_t";}
         if(t==typeid(ofParameter<uint16_t>).name()) { result.type = UINT16_T; result.typeName = "uint16_t";}
-        if(t==typeid(ofParameter<float>).name()) { result.type = FLOAT; result.typeName = "float";}
-        if(t==typeid(ofParameter<bool>).name()) { result.type = BOOL; result.typeName = "bool";}
+        if(t==typeid(ofParameter<float>).name()) { result.type = FLOAT_; result.typeName = "float";}
+        if(t==typeid(ofParameter<bool>).name()) { result.type = BOOL_; result.typeName = "bool";}
         if(t==typeid(ofParameter<ofVec2f>).name()) { result.type = OFVEC2F; result.typeName = "ofVec2f";}
         if(t==typeid(ofParameter<ofVec3f>).name()) { result.type = OFVEC3F; result.typeName = "ofVec3f";}
         if(t==typeid(ofParameter<ofVec4f>).name()) { result.type = OFVEC4F; result.typeName = "ofVec4f";}
@@ -60,7 +60,7 @@ public:
         if(t==typeid(ofParameter<ofShortColor>).name()) { result.type = OFSHORTCOLOR; result.typeName = "ofShortColor";}
         if(t==typeid(ofParameter<ofFloatColor>).name()) { result.type = OFFLOATCOLOR; result.typeName = "ofFloatColor";}
         if(t==typeid(ofParameter<string>).name()) { result.type = STRING; result.typeName = "string";}
-        if(t==typeid(ofParameterGroup).name()) { result.type = GROUP; result.typeName = "group";}
+        if(t==typeid(ofParameterGroup).name()) { result.type = GROUP_; result.typeName = "group";}
         
         if(result.type == UNKNOWN)
         {
