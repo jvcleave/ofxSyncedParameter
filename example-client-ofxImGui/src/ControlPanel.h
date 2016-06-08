@@ -41,7 +41,7 @@ public:
             ProbeResult probeResult = ParameterTypeUtils::probeType(param);
             switch(probeResult.type)
             {
-                case FLOAT:
+                case FLOAT_:
                 {
                     ParameterTypeUtils::collectParams(param, floatParams);
                     break;
@@ -54,7 +54,7 @@ public:
                     ParameterTypeUtils::collectParams(param, intParams);
                     break;
                 }
-                case BOOL:
+                case BOOL_:
                 {
                     ParameterTypeUtils::collectParams(param, boolParams);
                     break;

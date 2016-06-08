@@ -10,7 +10,7 @@ public:
     ofxSyncedParameter()
     {
         T temp;
-        value = temp;
+//        value = temp;
     };
     
     string type() const
